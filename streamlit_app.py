@@ -1,40 +1,46 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
+import pandas as pd
 
-"""
-# Welcome to Streamlit!
+def multi_criteria_analysis(criteria_weights, alternatives):
+    # Normalize criteria weights
+    total_weight = sum(criteria_weights.values())
+    normalized_weights = {key: value / total_weight for key, value in criteria_weights.items()}
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+    # Calculate scores for alternatives
+    scores = {}
+    for alt in alternatives:
+        alt_score = sum([normalized_weights[criteria] * alternatives[alt][criteria] for criteria in criteria_weights])
+        scores[alt] = alt_score
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+    return scores
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+def main():
+    st.title("Multi-Criteria Analysis Tool")
+    
+    # Define criteria and alternatives
+    criteria = ['Cost', 'Time', 'Quality']
+    alternatives = {
+        'Option 1': {'Cost': 5, 'Time': 8, 'Quality': 7},
+        'Option 2': {'Cost': 7, 'Time': 6, 'Quality': 9},
+        'Option 3': {'Cost': 4, 'Time': 9, 'Quality': 6}
+    }
+    
+    # Collect user input for criteria weights
+    st.sidebar.header('Criteria Weights')
+    criteria_weights = {}
+    for crit in criteria:
+        weight = st.sidebar.slider(f"Weight for {crit}", 0, 10, 5)
+        criteria_weights[crit] = weight
+    
+    st.write("Selected Criteria Weights:", criteria_weights)
+    
+    # Perform multi-criteria analysis
+    scores = multi_criteria_analysis(criteria_weights, alternatives)
+    
+    # Display results
+    st.subheader("Scores for Alternatives")
+    df = pd.DataFrame.from_dict(scores, orient='index', columns=['Score'])
+    st.write(df)
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
-
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
-
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
-
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+if __name__ == "__main__":
+    main()
