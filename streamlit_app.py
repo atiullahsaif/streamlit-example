@@ -15,14 +15,14 @@ def multi_criteria_analysis(criteria_weights, alternatives):
     return scores
 
 def main():
-    st.title("Weighted overlay analysis - CITYAM Example")
+    st.title("Weighted overlay analysis - CITYAM ")
     
     # Define criteria and alternatives
-    criteria = ['Parameter 1', 'Parameter 2', 'Parameter 3']
+    criteria = ['Population density', 'Wind speed', 'Noise level']
     alternatives = {
-        'Option 1': {'Parameter 1': 5, 'Parameter 2': 8, 'Parameter 3': 7},
-        'Option 2': {'Parameter 1': 7, 'Parameter 2': 6, 'Parameter 3': 9},
-        'Option 3': {'Parameter 1': 4, 'Parameter 2': 9, 'Parameter 3': 6}
+        'Option 1': {'Population density': 5, 'Wind speed': 8, 'Noise level': 7},
+        'Option 2': {'Population density': 7, 'Wind speed': 6, 'Noise level': 9},
+        'Option 3': {'Population density': 4, 'Wind speed': 9, 'Noise level': 6}
     }
     
     # Collect user input for criteria weights
