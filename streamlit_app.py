@@ -15,14 +15,14 @@ def multi_criteria_analysis(criteria_weights, alternatives):
     return scores
 
 def main():
-    st.title("Multi-Criteria Analysis Tool")
+    st.title("Weighted overlay analysis - CITYAM Example")
     
     # Define criteria and alternatives
     criteria = ['Cost', 'Time', 'Quality']
     alternatives = {
-        'Option 1': {'Cost': 5, 'Time': 8, 'Quality': 7},
-        'Option 2': {'Cost': 7, 'Time': 6, 'Quality': 9},
-        'Option 3': {'Cost': 4, 'Time': 9, 'Quality': 6}
+        'Option 1': {'Parameter 1': 5, 'Parameter 2': 8, 'Parameter 3': 7},
+        'Option 2': {'Parameter 1': 7, 'Parameter 2': 6, 'Parameter 3': 9},
+        'Option 3': {'Parameter 1': 4, 'Parameter 2': 9, 'Parameter 3': 6}
     }
     
     # Collect user input for criteria weights
