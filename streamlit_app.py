@@ -18,7 +18,7 @@ def main():
     st.title("Weighted overlay analysis - CITYAM Example")
     
     # Define criteria and alternatives
-    criteria = ['Cost', 'Time', 'Quality']
+    criteria = ['Parameter 1', 'Parameter 2', 'Parameter 3']
     alternatives = {
         'Option 1': {'Parameter 1': 5, 'Parameter 2': 8, 'Parameter 3': 7},
         'Option 2': {'Parameter 1': 7, 'Parameter 2': 6, 'Parameter 3': 9},
